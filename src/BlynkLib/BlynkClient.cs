@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading;
 
 using Newtonsoft.Json;
-//using RestSharp;
 
 namespace BlynkLib
 {
@@ -161,7 +160,7 @@ namespace BlynkLib
 
     public bool IsHardwareConnected()
     {
-      this.blynkClient = new RestClient($"{MainBlynkUri}/{this.AuthToken}/isHardwareConnected");
+      this.blynkClient = new RestClient(string.Format("{0}/{1}/isHardwareConnected", MainBlynkUri, this.AuthToken));
       RestResponse response = blynkClient.Get();
 
       if (response.StatusCode != HttpStatusCode.OK)
@@ -180,7 +179,7 @@ namespace BlynkLib
 
     public bool IsAppConnected()
     {
-      this.blynkClient = new RestClient($"{MainBlynkUri}/{this.AuthToken}/isAppConnected");
+      this.blynkClient = new RestClient(string.Format("{0}/{1}/isAppConnected", MainBlynkUri, this.AuthToken));
       RestResponse response = this.blynkClient.Get();
 
       if (response.StatusCode != HttpStatusCode.OK)
@@ -199,7 +198,7 @@ namespace BlynkLib
 
     public ProjectStructure GetProjectStructure()
     {
-      this.blynkClient = new RestClient($"{MainBlynkUri}/{this.AuthToken}/project");
+      this.blynkClient = new RestClient(string.Format("{0}/{1}/project", MainBlynkUri, this.AuthToken));
       RestResponse response = this.blynkClient.Get();
 
       if (response.StatusCode != HttpStatusCode.OK)
@@ -220,7 +219,7 @@ namespace BlynkLib
     {
       string pinType = pin.PinType == PinType.Digital ? "D" : "V";
 
-      this.blynkClient = new RestClient($"{MainBlynkUri}/{this.AuthToken}/update/{pinType}{pin.Pin}?value={pin.Value}");
+      this.blynkClient = new RestClient(string.Format("{0}/{1}/update/{2}{3}?value={4}", MainBlynkUri, this.AuthToken, pinType, pin.Pin, pin.Value));
       RestResponse response = this.blynkClient.Get();
 
       if (response.StatusCode != HttpStatusCode.OK)
@@ -275,7 +274,7 @@ namespace BlynkLib
 
       string pinType = type == PinType.Digital ? "D" : "V";
 
-      this.blynkClient = new RestClient($"{MainBlynkUri}/{this.AuthToken}/get/{pinType}{pin}");
+      this.blynkClient = new RestClient(string.Format("{0}/{1}/get/{2}{3}", MainBlynkUri, this.AuthToken, pinType, pin));
       RestResponse response = this.blynkClient.Get();
 
       if (response.StatusCode != HttpStatusCode.OK)
@@ -313,8 +312,8 @@ namespace BlynkLib
       if (notification.body.Length > 255)
         return false;
 
-      this.blynkClient = new RestClient($"{MainBlynkUri}/{this.AuthToken}/notify");
-      RestResponse response = this.blynkClient.Post($"{JsonConvert.SerializeObject(notification)}");
+      this.blynkClient = new RestClient(string.Format("{0}/{1}/notify", MainBlynkUri, this.AuthToken));
+      RestResponse response = this.blynkClient.Post(string.Format("{0}", JsonConvert.SerializeObject(notification)));
 
       if (response.StatusCode != HttpStatusCode.OK)
       {
