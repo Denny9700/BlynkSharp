@@ -30,10 +30,29 @@ namespace BlynkLib
     public event DigitalPinDataReceivedHandler DigitalPinDataReceived;
     public event VirtualPinDataReceivedHandler VirtualPinDataReceived;
 
-    protected virtual void OnBadResponseEvent(BadResponseEventArgs args) => BadResponse?.Invoke(this, args);
-    protected virtual void OnConnectionChangeEvent(ConnectionChangeEventArgs args) => ConnectionChange?.Invoke(this, args);
-    protected virtual void OnDigitalPinDataReceivedEvent(DigitalPinDataReceivedEventArgs args) => DigitalPinDataReceived?.Invoke(this, args);
-    protected virtual void OnVirtualPinDataReceivedEvent(VirtualPinDataReceivedEventArgs args) => VirtualPinDataReceived?.Invoke(this, args);
+    protected virtual void OnBadResponseEvent(BadResponseEventArgs args)
+    {
+      if(BadResponse != null)
+        BadResponse.Invoke(this, args);
+    }
+
+    protected virtual void OnConnectionChangeEvent(ConnectionChangeEventArgs args)
+    {
+      if(ConnectionChange != null)
+        ConnectionChange.Invoke(this, args);
+    }
+
+    protected virtual void OnDigitalPinDataReceivedEvent(DigitalPinDataReceivedEventArgs args)
+    {
+      if(DigitalPinDataReceived != null)
+        DigitalPinDataReceived.Invoke(this, args);
+    }
+
+    protected virtual void OnVirtualPinDataReceivedEvent(VirtualPinDataReceivedEventArgs args)
+    {
+      if(VirtualPinDataReceived != null)
+        VirtualPinDataReceived.Invoke(this, args);
+    }
 
     #region Private Var
     private string _blynkUri;
