@@ -620,6 +620,7 @@ namespace BlynkLib
     public BlynkPin(BlynkClient blynk, PinType type)
     {
       this.Client = blynk;
+      this.PinType = type;
     }
 
     public BlynkPin(BlynkClient blynk, byte pin, PinType type)
