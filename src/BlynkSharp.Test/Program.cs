@@ -11,7 +11,7 @@ namespace BlynkSharp.Test
 
     static void Main(string[] args)
     {
-      BlynkClient blynk = new BlynkClient("18ab7e60abcb4de1a47c94fe624d7633");
+      BlynkClient blynk = new BlynkClient("token");
       blynk.AddPin(VirtualLed);
       blynk.AddPin(LedOnBoard);
 
@@ -27,10 +27,6 @@ namespace BlynkSharp.Test
 
     private static void Blynk_DigitalPinDataReceived(object sender, DigitalPinDataReceivedEventArgs e)
     {
-      if (e.BlynkPin.Value > 0)
-        VirtualLed.On();
-      else
-        VirtualLed.Off();
     }
 
     private static void Blynk_VirtualPinDataReceived(object sender, VirtualPinDataReceivedEventArgs e)
